@@ -1,6 +1,13 @@
 # **MSc Dissertation: Bias-Minimized Racism Detection**
 
-**Curriculum Work / Academic Project**
+> **Scope** · MSc dissertation artifact (Letterkenny IT / ATU, 2021) — academic research, published as-is.
+>
+> **What's actually in here.** `Main.ipynb` is the *complete* experimental record, not a
+> cleaned-up final model: the architectures that underperformed, the preprocessing variants
+> that were discarded, and the comparisons that justified the final design are all still in it.
+> If you're working on hate-speech detection or bias-aware text classification, the branches
+> that didn't win are probably more useful to you than the one that did — published negative
+> results are rare in this space.
 
 ---
 
