@@ -12,7 +12,7 @@
 > [!NOTE]
 > **Built 2021. The ecosystem has moved since.**
 > Dependencies here are unpinned, so a clean `pip install` today resolves to
-> versions that did not exist when this was written and Theano/Lasagne is no longer maintained at all, while TensorFlow, Keras and scikit-learn have each had major releases. Expect install or
+> versions that did not exist when this was written and TensorFlow, Keras and scikit-learn have each had major releases, while the TF Hub BERT modules this loads have moved and Ekphrasis and tweet-preprocessor are effectively unmaintained. Expect install or
 > runtime breakage on a fresh environment. What is on offer is the engineering
 > approach and the decisions behind it, not a guaranteed-green build.
 > Happy to bring it current if that would be useful — just ask.
