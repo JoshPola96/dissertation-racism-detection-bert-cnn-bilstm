@@ -1,0 +1,34 @@
+# pyproject.toml
+[project]
+name = "dissertation-racism-detection-bert-cnn-bilstm"
+version = "2.0.0"
+description = "Racism detection in tweets with BERT-large, CNN and BiLSTM layers, and a hybrid text-plus-features model: an MSc dissertation, corrected."
+readme = "README.md"
+license = "MIT"
+requires-python = ">=3.12.1,<3.14"  # 3.12.0's zipfile returns empty reads after a seek (gh-102956), so .keras models fail to load
+dependencies = [
+    "ekphrasis>=0.5.4",
+    "emoji>=2.16",
+    "langdetect>=1.0.9",
+    "matplotlib>=3.11",
+    "numpy>=2.5",
+    "pandas>=3.0",
+    "scikit-learn>=1.9",
+    "setuptools<82",  # tensorflow-hub 0.16.1 imports pkg_resources, which setuptools 82 removed
+    # tensorflow-text and tf-keras are released in lockstep with TensorFlow: keep all three on the same minor version
+    "tensorflow[and-cuda]>=2.21,<2.22",
+    "tensorflow-hub>=0.16.1",
+    "tensorflow-text>=2.21.1,<2.22",
+    "textstat>=0.7.13",
+    "tf-keras>=2.21,<2.22",
+    "tweet-preprocessor>=0.6",
+    "vadersentiment>=3.3.2",
+    "wordcloud>=1.9.6",
+    "country-converter>=1.3.2",
+]
+
+[dependency-groups]
+dev = ["ipykernel>=7.4"]
+
+[tool.uv]
+environments = ["sys_platform == 'linux'"]  # tensorflow-text has no Windows build
