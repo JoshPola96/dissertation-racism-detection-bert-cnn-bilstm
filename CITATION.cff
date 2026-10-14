@@ -1,0 +1,20 @@
+# CITATION.cff
+cff-version: 1.2.0
+message: "If you use this code or HateAtlas, please cite them as below."
+title: "Racism detection in tweets with BERT-large, CNN and BiLSTM, and the HateAtlas builder"
+type: software
+authors:
+  - family-names: Polaprayil
+    given-names: Joshua Peter
+    email: josh19peter96@gmail.com
+repository-code: "https://github.com/JoshPola96/dissertation-racism-detection-bert-cnn-bilstm"
+license: MIT
+references:
+  - type: data
+    title: "HateAtlas: A Target-Aware Atlas of English Hate-Speech Datasets"
+    authors:
+      - family-names: Polaprayil
+        given-names: Joshua Peter
+    year: 2026
+    doi: 10.57967/hf/10899
+    url: "https://huggingface.co/datasets/JoshPola96/HateAtlas"

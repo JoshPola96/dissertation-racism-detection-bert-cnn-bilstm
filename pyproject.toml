@@ -28,6 +28,7 @@ dependencies = [
 ]
 
 [dependency-groups]
+builder = ["datasketch>=2.0.0", "pyarrow>=26.0.0"]
 dev = ["ipykernel>=7.4"]
 
 [tool.uv]
