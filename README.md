@@ -10,7 +10,7 @@
 | Part | What it is | Where |
 |---|---|---|
 | Notebook 1 | The 2021 dissertation, corrected and rebuilt as a tutorial: racism detection with BERT-large, CNN and BiLSTM layers, and a hybrid with tweet features | [`racism_detection_bert_cnn_bilstm.ipynb`](racism_detection_bert_cnn_bilstm.ipynb), [below](#notebook-1-the-dissertation-rebuilt) |
-| HateAtlas | 21 English hate-speech datasets read together on one schema (18 in the published tables), with targets and every source's own label kept | [Hugging Face](https://huggingface.co/datasets/JoshPola96/HateAtlas), [Kaggle](https://www.kaggle.com/datasets/joshpeter96/hateatlas), [`builder/`](builder/), [below](#hateatlas) |
+| HateAtlas | 21 English hate-speech datasets read together on one schema (18 in the published tables), with targets and every source's own label kept | [Hugging Face](https://huggingface.co/datasets/JoshPola96/HateAtlas), [release](https://github.com/JoshPola96/dissertation-racism-detection-bert-cnn-bilstm/releases/tag/v2.0.0), [Kaggle](https://www.kaggle.com/datasets/joshpeter96/hateatlas), [`builder/`](builder/), [below](#get-the-data) |
 | Notebook 2 | Current methods trained and tested on HateAtlas (in progress) | [below](#notebook-2) |
 
 ## Notebook 1: the dissertation, rebuilt
@@ -101,17 +101,43 @@ Open `racism_detection_bert_cnn_bilstm.ipynb` in VS Code, select the `.venv` ker
 
 The dissertation's conclusion that new datasets were needed led to [HateAtlas](https://huggingface.co/datasets/JoshPola96/HateAtlas): 21 English hate-speech datasets read together on one schema, with each text's hate level, the groups it targets, and every source's own label, id and author kept beside it. The published tables hold 18 of them, as their licences allow; the builder adds the other three on your machine. Racism becomes a filter across sources, platforms and authors instead of one dataset's nine authors. Its dataset card sets out the sources, how each was read, and the dataset's limits. Cite it by its DOI, [10.57967/hf/10899](https://doi.org/10.57967/hf/10899).
 
-It is published in three configurations, one per licence tier, since share-alike and non-commercial sources cannot share a table: `open` (CC BY 4.0, the default), `share_alike` (CC BY-SA 4.0) and `non_commercial` (CC BY-NC-SA 4.0).
+### Get the data
+
+It is published in three configurations, one per licence tier, since share-alike and non-commercial sources cannot share a table. Each is one Parquet file of about 170 MB, the same bytes on Hugging Face, in this repository's [v2.0.0 release](https://github.com/JoshPola96/dissertation-racism-detection-bert-cnn-bilstm/releases/tag/v2.0.0) and on [Kaggle](https://www.kaggle.com/datasets/joshpeter96/hateatlas):
+
+| Configuration | Licence | Browse every row | Download |
+|---|---|---|---|
+| `open` (default) | CC BY 4.0 | [viewer](https://huggingface.co/datasets/JoshPola96/HateAtlas/viewer/open) | [hateatlas-open.parquet](https://github.com/JoshPola96/dissertation-racism-detection-bert-cnn-bilstm/releases/download/v2.0.0/hateatlas-open.parquet) |
+| `share_alike` | CC BY-SA 4.0 | [viewer](https://huggingface.co/datasets/JoshPola96/HateAtlas/viewer/share_alike) | [hateatlas-share_alike.parquet](https://github.com/JoshPola96/dissertation-racism-detection-bert-cnn-bilstm/releases/download/v2.0.0/hateatlas-share_alike.parquet) |
+| `non_commercial` | CC BY-NC-SA 4.0 | [viewer](https://huggingface.co/datasets/JoshPola96/HateAtlas/viewer/non_commercial) | [hateatlas-non_commercial.parquet](https://github.com/JoshPola96/dissertation-racism-detection-bert-cnn-bilstm/releases/download/v2.0.0/hateatlas-non_commercial.parquet) |
+
+The [dataset card](https://huggingface.co/datasets/JoshPola96/HateAtlas) defines every field and credits every source; the release also holds it as [`hateatlas-card.md`](https://github.com/JoshPola96/dissertation-racism-detection-bert-cnn-bilstm/releases/download/v2.0.0/hateatlas-card.md), with each table's build report.
+
+Load a table in Python, from Hugging Face or straight from the release:
 
 ```python
 from datasets import load_dataset
 
 atlas = load_dataset("JoshPola96/HateAtlas", "open", split="train")
+
+import pandas as pd
+
+atlas = pd.read_parquet("https://github.com/JoshPola96/dissertation-racism-detection-bert-cnn-bilstm/releases/download/v2.0.0/hateatlas-open.parquet")
 ```
 
-The same tables, their build reports and the dataset card can also be downloaded from this repository's [latest release](https://github.com/JoshPola96/dissertation-racism-detection-bert-cnn-bilstm/releases/latest) and from [Kaggle](https://www.kaggle.com/datasets/joshpeter96/hateatlas).
+Or download every file with the command-line tool of the platform you use:
 
-To build it yourself, in Linux or WSL ([`builder/README.md`](builder/README.md) explains every step, the four gated sources, how the pipeline works and how to add a source):
+```bash
+gh release download v2.0.0 -R JoshPola96/dissertation-racism-detection-bert-cnn-bilstm
+uvx --from huggingface_hub hf download JoshPola96/HateAtlas --repo-type dataset --local-dir HateAtlas
+kaggle datasets download joshpeter96/hateatlas --unzip
+```
+
+In a Kaggle notebook, add HateAtlas as an input and read `/kaggle/input/hateatlas/hateatlas-open.parquet`.
+
+### Build it yourself
+
+In Linux or WSL ([`builder/README.md`](builder/README.md) explains every step, the four gated sources, how the pipeline works and how to add a source):
 
 1. Clone the repository: `git clone https://github.com/JoshPola96/dissertation-racism-detection-bert-cnn-bilstm.git`, then `cd` into it.
 2. Install [uv](https://docs.astral.sh/uv/): `curl -LsSf https://astral.sh/uv/install.sh | sh`.
